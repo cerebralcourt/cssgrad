@@ -1,6 +1,6 @@
 import Vue from "vue"
 import Vuex from "vuex"
-import { createCSS } from "@/util"
+import { createCSS, rgbToHex } from "@/util"
 
 Vue.use(Vuex)
 
@@ -30,6 +30,7 @@ const store = new Vuex.Store({
                 percent: 100,
             },
         ],
+        lastId: 1,
         current: 0,
         type: "linear",
         repeating: false,
@@ -52,10 +53,20 @@ const store = new Vuex.Store({
         setCurrent(state, id) {
             state.current = id
         },
+        addColor(state, { rgba, percent }) {
+            const hex = rgbToHex(rgba)
+            const id = state.lastId + 1
+
+            state.colors.push({ id, hex, rgba, percent })
+            state.colors.sort((a, b) => a.percent - b.percent)
+            state.lastId = id
+        },
         setColorPercent(state, { id, percent }) {
             const index = state.colors.findIndex(c => c.id === id)
             const color = state.colors[index]
+            
             state.colors.splice(index, 1, { ...color, percent })
+            state.colors.sort((a, b) => a.percent - b.percent)
         },
     },
 })

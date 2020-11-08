@@ -1,4 +1,4 @@
-export const createCSS = ({colors, repeating, type, linear, radial}) => {
+export const createCSS = ({ colors, repeating, type, linear, radial }) => {
     const optionsToCSS = (type, linear, radial) => {
         if (type === "linear") {
             const { deg } = linear
@@ -22,4 +22,13 @@ export const createCSS = ({colors, repeating, type, linear, radial}) => {
         background: ${colorToCSS(colors[0])};
         background: ${repeating ? "repeating-" : ""}${type}-gradient(${colorsCSS});
     `.trim()
+}
+
+export const rgbToHex = ({ red, green, blue }) => {
+    const toHex = (c) => {
+        const hex = c.toString(16)
+        return hex.length == 1 ? "0" + hex : hex
+    }
+
+    return toHex(red) + toHex(green) + toHex(blue)
 }

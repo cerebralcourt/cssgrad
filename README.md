@@ -1,5 +1,7 @@
 # cssgrad
 
+A CSS gradient generator.
+
 ## Project setup
 ```
 yarn install

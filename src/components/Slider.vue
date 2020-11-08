@@ -1,6 +1,10 @@
 <template>
     <div class="slider relative border-2 border-black rounded" ref="slider">
-        <div class="border-2 border-white rounded w-full h-full cursor-pointer" :style="css">
+        <div
+            class="border-2 border-white rounded w-full h-full cursor-pointer"
+            :style="css"
+            @click="onSliderClick"
+        >
             <div
                 v-for="color in colors"
                 :key="color.id"
@@ -39,6 +43,31 @@ export default {
         },
     },
     methods: {
+        onSliderClick(e) {
+            if (e.target.parentElement.isEqualNode(this.$refs.slider)) {
+                const slider = this.$refs.slider
+                const sliderX = slider.getBoundingClientRect().left
+                const clickX = e.pageX - sliderX
+                const percentUnbounded = Math.round((clickX / slider.clientWidth) * 100)
+                const percent = Math.min(Math.max(percentUnbounded, 0), 100)
+
+                import("html2canvas").then(mod => {
+                    const html2canvas = mod.default
+                    html2canvas(document.body).then(canvas => {
+                        const ctx = canvas.getContext("2d")
+                        const color = ctx.getImageData(e.pageX, e.pageY, 1, 1).data
+                        const rgba = {
+                            red: color[0],
+                            green: color[1],
+                            blue: color[2],
+                            alpha: color[3],
+                        }
+
+                        this.$store.commit("addColor", { percent, rgba })
+                    });
+                })
+            }
+        },
         onHandleSelect(id) {
             const slider = this.$refs.slider
             const sliderX = slider.getBoundingClientRect().left
