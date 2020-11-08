@@ -1,7 +1,6 @@
 import Vue from "vue"
-import App from "./App.vue"
-import store from "./store"
-import "./tailwind"
+import App from "@/App.vue"
+import store from "@/store"
 import "picnic/picnic.min.css"
 
 Vue.config.productionTip = false

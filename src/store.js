@@ -1,28 +1,14 @@
 import Vue from "vue"
 import Vuex from "vuex"
+import { createCSS } from "@/util"
 
 Vue.use(Vuex)
-
-function optionsToCSS(type, linear, radial) {
-    if (type === "linear") {
-        const { deg } = linear
-        return `${deg}deg`
-    } else if (type === "radial") {
-        const { shape, size, position } = radial
-        return `${shape} ${size} at ${position.left}% ${position.right}%`
-    }
-}
-
-function colorToCSS(color) {
-    const { rgba, percent } = color
-    const { red, green, blue, alpha } = rgba
-    return `rgba(${red}, ${green}, ${blue}, ${alpha}) ${percent}%`
-}
 
 const store = new Vuex.Store({
     state: {
         colors: [
             {
+                id: 0,
                 hex: "00eeff",
                 rgba: {
                     red: 0,
@@ -33,6 +19,7 @@ const store = new Vuex.Store({
                 percent: 0,
             },
             {
+                id: 1,
                 hex: "0000ff",
                 rgba: {
                     red: 0,
@@ -59,17 +46,18 @@ const store = new Vuex.Store({
         },
     },
     getters: {
-        css: ({colors, repeating, type, linear, radial}) => {
-            const options = optionsToCSS(type, linear, radial)
-            const colorsCSS = options + ", " + colors.map(colorToCSS).join(", ")
-
-            return `
-                background: ${colorToCSS(colors[0])};
-                background: ${repeating ? "repeating-" : ""}${type}-gradient(${colorsCSS});
-            `.trim()
+        css: state => createCSS(state),
+    },
+    mutations: {
+        setCurrent(state, id) {
+            state.current = id
+        },
+        setColorPercent(state, { id, percent }) {
+            const index = state.colors.findIndex(c => c.id === id)
+            const color = state.colors[index]
+            state.colors.splice(index, 1, { ...color, percent })
         },
     },
-    mutations: {},
 })
 
 export default store
