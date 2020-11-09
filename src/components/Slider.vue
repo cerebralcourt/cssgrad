@@ -47,15 +47,17 @@ export default {
             if (e.target.parentElement.isEqualNode(this.$refs.slider)) {
                 const slider = this.$refs.slider
                 const sliderX = slider.getBoundingClientRect().left
+                const sliderY = slider.getBoundingClientRect().top
                 const clickX = e.pageX - sliderX
+                const clickY = e.pageY - sliderY
                 const percentUnbounded = Math.round((clickX / slider.clientWidth) * 100)
                 const percent = Math.min(Math.max(percentUnbounded, 0), 100)
 
                 import("html2canvas").then(mod => {
                     const html2canvas = mod.default
-                    html2canvas(document.body).then(canvas => {
+                    html2canvas(slider).then(canvas => {
                         const ctx = canvas.getContext("2d")
-                        const color = ctx.getImageData(e.pageX, e.pageY, 1, 1).data
+                        const color = ctx.getImageData(clickX, clickY, 1, 1).data
                         const rgba = {
                             red: color[0],
                             green: color[1],
@@ -100,7 +102,7 @@ export default {
 
 <style lang="postcss">
 .slider {
-    max-height: 10vh;
+    height: 10vh;
     padding: 0 !important;
 }
 
