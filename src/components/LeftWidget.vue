@@ -15,7 +15,7 @@
             >
                 Type
             </button>
-            <div class="tab-underline" :class="tab === 1 && 'active'" />
+            <div class="tab-underline" :class="tab === 1 && 'active'" ref="underline" />
         </div>
         <div class="tab-container flex" :class="tab === 1 && 'active'">
             <div class="p-5 w-1/2">

@@ -25,6 +25,12 @@ export default {
             return this.$store.getters.css
         },
     },
+    mounted() {
+        import("node-waves").then(mod => {
+            const Waves = mod.default
+            Waves.init()
+        })
+    },
 }
 </script>
 
@@ -52,14 +58,38 @@ export default {
 }
 
 .tab-underline {
-    @apply absolute bottom-0 bg-white w-1/2 z-10;
+    @apply absolute left-0 bottom-0 bg-white w-1/2 z-10;
     height: 2px;
-    left: 0%;
-    transition: left 350ms ease-in-out;
+    transition: left 350ms ease-in;
+}
+
+.tab-underline:not(.active) {
+    animation: underline-left 350ms ease-in-out alternate;
 }
 
 .tab-underline.active {
     left: 50%;
+    animation: underline-right 350ms ease-in-out alternate;
+}
+
+@keyframes underline-left {
+    from {
+        width: 50%;
+    }
+
+    to {
+        width: 70%;
+    }
+}
+
+@keyframes underline-right {
+    from {
+        width: 50%;
+    }
+
+    to {
+        width: 70%;
+    }
 }
 
 .tab-container {
