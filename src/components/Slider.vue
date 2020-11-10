@@ -14,13 +14,15 @@
                 @mouseover="hovering = color.id"
                 @mouseout="hovering = null"
             >
-                <span
-                    class="percent absolute"
-                    :style="`color: #${rgbToHex(color.rgba)}`"
-                    v-if="hovering === color.id || dragging === color.id"
-                >
-                    {{ color.percent }}
-                </span>
+                <transition name="fade">
+                    <span
+                        class="percent absolute"
+                        :style="`color: #${rgbToHex(color.rgba)}`"
+                        v-if="hovering === color.id || dragging === color.id"
+                    >
+                        {{ color.percent }}
+                    </span>
+                </transition>
                 <div
                     class="border-2 rounded-full w-full h-full transition-colors duration-300"
                     :class="current === color.id ? 'border-blue-600' : 'border-black'"
@@ -151,5 +153,13 @@ export default {
 
 .percent::selection {
     @apply bg-transparent;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 250ms;
+}
+
+.fade-enter, .fade-leave-to {
+    opacity: 0;
 }
 </style>

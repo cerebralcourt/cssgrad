@@ -1,6 +1,6 @@
 <template>
     <div id="app" class="h-screen flex flex-col" :style="css">
-        <div class="container flex justify-between flex-grow">
+        <div class="app-container flex justify-between flex-grow">
             <left-widget />
             <right-widget />
         </div>
@@ -43,7 +43,7 @@ export default {
     padding: 10vh;
 }
 
-.container {
+.app-container {
     margin-bottom: 9vh;
     padding: 0 !important;
 }

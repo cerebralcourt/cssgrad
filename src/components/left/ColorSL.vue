@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container mb-5">
         <div class="rounded border-2 border-white overflow-hidden w-full h-full">
             <div
                 class="slider cursor-pointer"
@@ -83,7 +83,6 @@ export default {
 
 <style lang="postcss" scoped>
 .container {
-    @apply mb-5;
     position: relative;
     width: 100%;
     min-width: 20vh;

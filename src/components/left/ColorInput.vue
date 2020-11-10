@@ -1,5 +1,5 @@
 <template>
-    <div class="container flex justify-between gap-3 w-full">
+    <div class="flex justify-between gap-3 w-full mb-5">
         <label class="hex">
             <input type="text" :value="hex" @blur="setHex" />
             Hex
@@ -76,10 +76,6 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
-.container {
-    @apply mb-5;
-}
-
 label {
     @apply flex flex-col items-center text-gray-700 gap-1;
     width: 20%;
