@@ -1,7 +1,7 @@
 <template>
-    <div class="slider relative border-2 border-black rounded" ref="slider">
+    <div class="slider relative border-2 border-black rounded cursor-pointer" ref="slider">
         <div
-            class="border-2 border-white rounded w-full h-full cursor-pointer"
+            class="border-2 border-white rounded w-full h-full"
             :style="css"
             @click="onSliderClick"
         >
@@ -11,7 +11,16 @@
                 class="handle absolute border-2 border-white rounded-full cursor-move"
                 :style="`left: calc(${color.percent}% - 10px)`"
                 @pointerdown="onHandleClick(color.id)"
+                @mouseover="hovering = color.id"
+                @mouseout="hovering = null"
             >
+                <span
+                    class="percent absolute"
+                    :style="`color: #${rgbToHex(color.rgba)}`"
+                    v-if="hovering === color.id || dragging === color.id"
+                >
+                    {{ color.percent }}
+                </span>
                 <div
                     class="border-2 rounded-full w-full h-full transition-colors duration-300"
                     :class="current === color.id ? 'border-blue-600' : 'border-black'"
@@ -85,11 +94,18 @@ export default {
                 this.$store.commit("setColorPercent", { id, percent })
             }
 
+            document.body.style.cursor = "move"
+            slider.style.cursor = "move"
+            this.dragging = id
+
             window.addEventListener("pointermove", drag)
             window.addEventListener("touchmove", drag)
 
             const onHandleUp = (e) => {
                 e.preventDefault()
+                document.body.style.cursor = "auto"
+                slider.style.cursor = "pointer"
+                this.dragging = null
                 window.removeEventListener("pointermove", drag)
                 window.removeEventListener("touchmove", drag)
             }
@@ -97,6 +113,12 @@ export default {
             window.addEventListener("pointerup", onHandleUp)
             window.addEventListener("touchend", onHandleUp)
         },
+    },
+    data() {
+        return {
+            dragging: null,
+            hovering: null,
+        }
     },
 }
 </script>
@@ -118,5 +140,16 @@ export default {
 
 .handle:hover > div {
     @apply border-blue-600;
+}
+
+.percent {
+    @apply bg-gray-300 text-center py-3 rounded-full font-bold shadow;
+    top: -10vh;
+    left: -130%;
+    width: 10vh;
+}
+
+.percent::selection {
+    @apply bg-transparent;
 }
 </style>

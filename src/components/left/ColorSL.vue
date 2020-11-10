@@ -11,6 +11,7 @@
         <div
             class="cursor absolute z-20 cursor-move border-2 border-black rounded-full"
             :style="{'--x': x + '%', '--y': y + '%'}"
+            @pointerdown="onClick"
         >
             <div class="border-2 border-white rounded-full w-full h-full"></div>
         </div>
@@ -58,6 +59,8 @@ export default {
                 this.$store.commit("setColorSL", { s, l })
             }
 
+            document.body.style.cursor = "move"
+            slider.style.cursor = "move"
             drag(e)
 
             window.addEventListener("pointermove", drag)
@@ -65,6 +68,8 @@ export default {
 
             const onHandleUp = (e) => {
                 e.preventDefault()
+                document.body.style.cursor = "auto"
+                slider.style.cursor = "pointer"
                 window.removeEventListener("pointermove", drag)
                 window.removeEventListener("touchmove", drag)
             }

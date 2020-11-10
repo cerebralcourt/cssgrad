@@ -6,7 +6,7 @@
         @pointerdown="onClick"
     >
         <div
-            class="handle absolute bg-white border-2 border-black"
+            class="handle absolute bg-white border-2 border-black cursor-move"
             :style="`left: calc(${x}% - 5px)`"
         />
     </div>
@@ -36,6 +36,8 @@ export default {
                 this.$store.commit("setColorHue", hue)
             }
 
+            document.body.style.cursor = "move"
+            slider.style.cursor = "move"
             drag(e)
 
             window.addEventListener("pointermove", drag)
@@ -43,6 +45,8 @@ export default {
 
             const onHandleUp = (e) => {
                 e.preventDefault()
+                document.body.style.cursor = "auto"
+                slider.style.cursor = "pointer"
                 window.removeEventListener("pointermove", drag)
                 window.removeEventListener("touchmove", drag)
             }
