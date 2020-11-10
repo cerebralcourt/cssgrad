@@ -36,7 +36,7 @@ export default {
         y() {
             const { rgba } = this.$store.getters.currentColor
             const { l } = rgbToHsl(rgba)
-            return 100 - l * 200
+            return 100 - l * 100
         },
     },
     methods: {
@@ -53,7 +53,7 @@ export default {
                 const x = Math.min(Math.max(mouseX / sliderWidth, 0), 1)
                 const y = Math.min(Math.max(mouseY / sliderHeight, 0), 1)
                 const s = x
-                const l = 0.5 - y / 2
+                const l = 1.0 - y
 
                 this.$store.commit("setColorSL", { s, l })
             }
@@ -78,10 +78,11 @@ export default {
 
 <style lang="postcss" scoped>
 .container {
+    @apply mb-5;
     position: relative;
     width: 100%;
     min-width: 20vh;
-    height: 12vh;
+    height: 15vh;
 }
 
 .slider {
@@ -94,7 +95,7 @@ export default {
     position: absolute;
     width: inherit;
     height: inherit;
-    background: linear-gradient(to bottom, var(--color), black);
+    background: linear-gradient(to bottom, white, var(--color), black);
     -webkit-mask-image: linear-gradient(to left, white, transparent);
 }
 

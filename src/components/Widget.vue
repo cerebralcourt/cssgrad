@@ -43,7 +43,8 @@ export default {
 <style lang="postcss" scoped>
 .widget {
     @apply border-b-2 border-gray-400;
-    background: linear-gradient(to bottom, theme("colors.gray.400"), theme("colors.gray.500"))
+    background: linear-gradient(to bottom, theme("colors.gray.400"), theme("colors.gray.500"));
+    max-width: 30vw;
 }
 
 .tab-underline {

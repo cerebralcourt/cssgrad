@@ -4,6 +4,8 @@ import { createCSS, rgbToHsl, hslToRgb } from "@/util"
 
 Vue.use(Vuex)
 
+const currentColor = ({ colors, current }) => colors.find(c => c.id === current)
+
 const store = new Vuex.Store({
     state: {
         colors: [
@@ -48,7 +50,7 @@ const store = new Vuex.Store({
     },
     getters: {
         css: state => createCSS(state),
-        currentColor: ({ colors, current }) => colors[current],
+        currentColor,
     },
     mutations: {
         setCurrent(state, id) {
@@ -56,12 +58,12 @@ const store = new Vuex.Store({
         },
         addColor(state, { rgba, percent }) {
             const id = state.lastId + 1
-            const { h } = rgbToHsl(rgba)
+            const hue = rgbToHsl(rgba).h
 
-            state.colors.push({ id, rgba, percent })
-            state.hues.push({ id, h })
+            state.colors.push({ id, rgba, percent, hue })
             state.colors.sort((a, b) => a.percent - b.percent)
             state.lastId = id
+            state.current = id
         },
         setColorPercent(state, { id, percent }) {
             const index = state.colors.findIndex(c => c.id === id)
@@ -70,14 +72,39 @@ const store = new Vuex.Store({
             state.colors.splice(index, 1, { ...color, percent })
             state.colors.sort((a, b) => a.percent - b.percent)
         },
+        setColorRgb(state, { red, green, blue }) {
+            const color = currentColor(state)
+            const { rgba, rgba: { alpha } } = color
+            const { h } = rgbToHsl(rgba)
+
+            const index = state.colors.indexOf(color)
+            state.colors.splice(index, 1, { ...color, rgba: { red, green, blue, alpha }, hue: h })
+        },
+        setColorAlpha(state, alpha) {
+            const color = currentColor(state)
+            const { rgba } = color
+
+            const index = state.colors.indexOf(color)
+            state.colors.splice(index, 1, { ...color, rgba: { ...rgba, alpha } })
+        },
+        setColorHue(state, hue) {
+            const color = currentColor(state)
+            const h = hue
+            const { s, l, alpha } = rgbToHsl(color.rgba)
+            const rgba = hslToRgb({ h, s, l, alpha })
+
+            const index = state.colors.indexOf(color)
+            state.colors.splice(index, 1, { ...color, rgba, hue })
+        },
         setColorSL(state, { s, l }) {
-            const color = state.colors[state.current]
+            const color = currentColor(state)
             const h = color.hue
             const { alpha } = color.rgba
             const hsl = { h, s, l, alpha }
             const rgba = hslToRgb(hsl)
 
-            state.colors.splice(state.current, 1, { ...color, rgba })
+            const index = state.colors.indexOf(color)
+            state.colors.splice(index, 1, { ...color, rgba })
         },
     },
 })

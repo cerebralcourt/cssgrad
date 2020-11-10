@@ -36,6 +36,25 @@ export const rgbToHex = ({ red, green, blue }) => {
     return toHex(r) + toHex(g) + toHex(b)
 }
 
+const RGB_HEX = /^#?(?:([\da-f]{3})[\da-f]?|([\da-f]{6})(?:[\da-f]{2})?)$/i
+
+export const hexToRgb = (hex) => {
+    const [ , short, long ] = String(hex).match(RGB_HEX) || [];
+
+    if (long) {
+        const value = Number.parseInt(long, 16)
+        const red = value >> 16
+        const green = value >> 8 & 0xFF
+        const blue = value & 0xFF
+
+        return { red, green, blue }
+    } else if (short) {
+        const [red, green, blue] = Array.from(short, s => Number.parseInt(s, 16)).map(n => (n << 4) | n)
+
+        return { red, green, blue }
+    }
+}
+
 export const rgbToHsl = ({ red, green, blue, alpha }) => {
     const r = red / 255
     const g = green / 255
