@@ -1,5 +1,5 @@
 <template>
-    <div class="widget rounded border-b-2 border-gray-500 shadow-lg h-full inline-block overflow-x-hidden">
+    <div class="widget rounded shadow-lg h-full inline-block overflow-x-hidden">
         <div class="relative">
             <button
                 class="w-1/2 px-5 py-2 transition-colors duration-300 waves-effect waves-light
@@ -42,7 +42,8 @@ export default {
 
 <style lang="postcss" scoped>
 .widget {
-    background: linear-gradient(to bottom, theme("colors.gray.500"), theme("colors.gray.600"))
+    @apply border-b-2 border-gray-400;
+    background: linear-gradient(to bottom, theme("colors.gray.400"), theme("colors.gray.500"))
 }
 
 .tab-underline {

@@ -1,7 +1,7 @@
 <template>
     <widget left="Color" right="Type">
         <div class="p-5 w-1/2">
-            <p>Hi</p>
+            <color-s-l />
         </div>
         <div class="p-5 w-1/2">
             <p>Hello</p>
@@ -10,12 +10,14 @@
 </template>
 
 <script>
-import Widget from "@/components/Widget"
+import Widget from "./Widget"
+import ColorSL from "./left/ColorSL"
 
 export default {
     name: "LeftWidget",
     components: {
         Widget,
+        ColorSL,
     },
 }
 </script>

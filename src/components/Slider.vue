@@ -10,7 +10,7 @@
                 :key="color.id"
                 class="handle absolute border-2 border-white rounded-full cursor-move"
                 :style="`left: calc(${color.percent}% - 10px)`"
-                @pointerdown="onHandleSelect(color.id)"
+                @pointerdown="onHandleClick(color.id)"
             >
                 <div
                     class="border-2 rounded-full w-full h-full transition-colors duration-300"
@@ -18,7 +18,7 @@
                 >
                     <div 
                         class="border-2 border-white rounded-full w-full h-full"
-                        :style="`background: #${color.hex}`"
+                        :style="`background: #${rgbToHex(color.rgba)}`"
                     />
                 </div>
             </div>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { createCSS } from "@/util"
+import { createCSS, rgbToHex } from "@/util"
 
 export default {
     name: "Slider",
@@ -43,6 +43,7 @@ export default {
         },
     },
     methods: {
+        rgbToHex,
         onSliderClick(e) {
             if (e.target.parentElement.isEqualNode(this.$refs.slider)) {
                 const slider = this.$refs.slider
@@ -70,7 +71,7 @@ export default {
                 })
             }
         },
-        onHandleSelect(id) {
+        onHandleClick(id) {
             const slider = this.$refs.slider
             const sliderX = slider.getBoundingClientRect().left
 
