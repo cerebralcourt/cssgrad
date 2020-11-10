@@ -106,6 +106,12 @@ const store = new Vuex.Store({
             const index = state.colors.indexOf(color)
             state.colors.splice(index, 1, { ...color, rgba })
         },
+        setType(state, type) {
+            state.type = type
+        },
+        setDeg(state, deg) {
+            state.linear.deg = deg
+        },
     },
 })
 

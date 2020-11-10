@@ -84,7 +84,7 @@ export default {
 <style lang="postcss" scoped>
 .container {
     position: relative;
-    width: 100%;
+    max-width: 100%;
     min-width: 20vh;
     height: 15vh;
 }
