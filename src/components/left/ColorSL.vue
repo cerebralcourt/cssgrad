@@ -13,7 +13,7 @@
             :style="{'--x': x + '%', '--y': y + '%'}"
             @pointerdown="onClick"
         >
-            <div class="border-2 border-white rounded-full w-full h-full"></div>
+            <div class="border-2 border-white rounded-full w-full h-full" />
         </div>
     </div>
 </template>

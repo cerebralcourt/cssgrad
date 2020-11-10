@@ -44,7 +44,13 @@ export default {
 .widget {
     @apply border-b-2 border-gray-400;
     background: linear-gradient(to bottom, theme("colors.gray.400"), theme("colors.gray.500"));
-    max-width: 30vw;
+    max-width: 40vw;
+}
+
+@media (min-width: theme("screens.lg")) {
+    .widget {
+        max-width: 30vw;
+    }
 }
 
 .tab-underline {

@@ -76,8 +76,8 @@ export default {
 <style lang="postcss" scoped>
 .slider {
     background: radial-gradient(theme("colors.gray.500"), theme("colors.gray.600"));
-    height: 30vh;
-    width: 30vh;
+    height: 25vh;
+    width: 25vh;
 }
 
 .cursor {

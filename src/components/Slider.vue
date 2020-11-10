@@ -47,7 +47,7 @@ export default {
             return this.$store.state.colors
         },
         css() {
-            return createCSS({ ...this.$store.state, linear: { deg: 90 } })
+            return createCSS({ ...this.$store.state, linear: { deg: 90 }, type: "linear" })
         },
         current() {
             return this.$store.state.current

@@ -6,14 +6,17 @@
             <color-hue />
             <color-alpha />
         </div>
-        <div class="p-5 w-1/2 overflow-hidden">
+        <div class="p-5 w-1/2">
             <type-tab />
-            <div class="container flex" :class="type === 'radial' && 'active'">
-                <div class="w-1/2">
-                    <linear-direction />
-                </div>
-                <div class="w-1/2">
-                    
+            <div class="overflow-x-hidden">
+                <div class="container flex" :class="type === 'radial' && 'active'">
+                    <div class="w-1/2">
+                        <linear-direction />
+                    </div>
+                    <div class="w-1/2">
+                        <radial-shape />
+                        <radial-position />
+                    </div>
                 </div>
             </div>
         </div>
@@ -28,6 +31,8 @@ import ColorHue from "./left/ColorHue"
 import ColorAlpha from "./left/ColorAlpha"
 import TypeTab from "./left/TypeTab"
 import LinearDirection from "./left/LinearDirection"
+import RadialShape from "./left/RadialShape"
+import RadialPosition from "./left/RadialPosition"
 
 export default {
     name: "LeftWidget",
@@ -39,6 +44,8 @@ export default {
         ColorAlpha,
         TypeTab,
         LinearDirection,
+        RadialShape,
+        RadialPosition,
     },
     computed: {
         type() {

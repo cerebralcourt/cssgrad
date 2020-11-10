@@ -41,7 +41,6 @@ const store = new Vuex.Store({
         },
         radial: {
             shape: "circle",
-            size: "farthest-corner",
             position: {
                 left: 50,
                 top: 50,
@@ -111,6 +110,12 @@ const store = new Vuex.Store({
         },
         setDeg(state, deg) {
             state.linear.deg = deg
+        },
+        setShape(state, shape) {
+            state.radial.shape = shape
+        },
+        setPosition(state, position) {
+            state.radial.position = position
         },
     },
 })

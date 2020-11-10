@@ -9,8 +9,8 @@ export const createCSS = ({ colors, repeating, type, linear, radial }) => {
             const { deg } = linear
             return `${deg}deg`
         } else if (type === "radial") {
-            const { shape, size, position } = radial
-            return `${shape} ${size} at ${position.left}% ${position.right}%`
+            const { shape, position } = radial
+            return `${shape} at ${position.left}% ${position.top}%`
         }
     }
 

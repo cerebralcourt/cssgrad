@@ -1,10 +1,17 @@
 <template>
     <div id="app" class="h-screen flex flex-col" :style="css">
-        <div class="app-container flex justify-between flex-grow">
-            <left-widget />
-            <right-widget />
+        <div class="hidden sm:block">
+            <div class="app-container flex justify-between flex-grow">
+                <left-widget />
+                <right-widget />
+            </div>
+            <slider />
         </div>
-        <slider />
+        <div class="text-xl text-white sm:hidden w-full h-full flex justify-center items-center">
+            <p class="text-center text-shadow">
+                Sorry! Your screen size is too small to use this application.
+            </p>
+        </div>
     </div>
 </template>
 
@@ -46,5 +53,9 @@ export default {
 .app-container {
     margin-bottom: 9vh;
     padding: 0 !important;
+}
+
+.text-shadow {
+    text-shadow: 1px 1px 1px black;
 }
 </style>
