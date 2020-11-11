@@ -2,28 +2,11 @@
 
 A CSS gradient generator.
 
-## Project setup
-```
-yarn install
-```
+https://giraffekey.github.io/cssgrad/
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+## Development
 
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+`yarn && yarn dev`
 
 ## Credit
 
