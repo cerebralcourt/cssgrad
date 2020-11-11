@@ -1,19 +1,25 @@
 <template>
-    <div class="flex text-white mb-4">
-        <button
-            class="rounded-l w-1/2 text-center py-1 transition-all duration-300 waves-effect waves-light"
-            :class="type === 'linear' && 'active border-r border-blue-700'"
-            @click="setType('linear')"
-        >
-            Linear
-        </button>
-        <button
-            class="rounded-r w-1/2 text-center py-1 transition-all duration-300 waves-effect waves-light"
-            :class="type === 'radial' && 'active border-l border-blue-700'"
-            @click="setType('radial')"
-        >
-            Radial
-        </button>
+    <div class="mb-4">
+        <div class="flex text-white mb-4">
+            <button
+                class="rounded-l w-1/2 text-center py-1 transition-all duration-300 waves-effect waves-light"
+                :class="type === 'linear' && 'active border-r border-blue-700'"
+                @click="setType('linear')"
+            >
+                Linear
+            </button>
+            <button
+                class="rounded-r w-1/2 text-center py-1 transition-all duration-300 waves-effect waves-light"
+                :class="type === 'radial' && 'active border-l border-blue-700'"
+                @click="setType('radial')"
+            >
+                Radial
+            </button>
+        </div>
+        <label class="block flex justify-center items-center">
+            <input type="checkbox" class="mr-2" v-model="repeating" />
+            Repeating
+        </label>
     </div>
 </template>
 
@@ -23,6 +29,14 @@ export default {
     computed: {
         type() {
             return this.$store.state.type
+        },
+        repeating: {
+            get() {
+                return this.$store.state.repeating
+            },
+            set(repeating) {
+                this.$store.commit("setRepeating", repeating)
+            },
         },
     },
     methods: {

@@ -27,6 +27,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## Credit
 
-This project uses a font awesome svg
+This project uses some font awesome icons
 
 https://fontawesome.com/license

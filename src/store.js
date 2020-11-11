@@ -68,6 +68,10 @@ const store = new Vuex.Store({
             if (state.colors.length > 2) {
                 const index = state.colors.findIndex(c => c.id === id)
                 state.colors.splice(index, 1)
+
+                if (id === state.current) {
+                    state.current = state.colors[0].id
+                }
             }
         },
         setColorPercent(state, { id, percent }) {
@@ -121,6 +125,9 @@ const store = new Vuex.Store({
         },
         setType(state, type) {
             state.type = type
+        },
+        setRepeating(state, repeating) {
+            state.repeating = repeating
         },
         setDeg(state, deg) {
             state.linear.deg = deg
