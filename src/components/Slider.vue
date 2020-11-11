@@ -59,27 +59,12 @@ export default {
             if (e.target.parentElement.isEqualNode(this.$refs.slider)) {
                 const slider = this.$refs.slider
                 const sliderX = slider.getBoundingClientRect().left
-                const sliderY = slider.getBoundingClientRect().top
+                const sliderWidth = slider.clientWidth
                 const clickX = e.pageX - sliderX
-                const clickY = e.pageY - sliderY
-                const percentUnbounded = Math.round((clickX / slider.clientWidth) * 100)
+                const percentUnbounded = Math.round((clickX / sliderWidth) * 100)
                 const percent = Math.min(Math.max(percentUnbounded, 0), 100)
 
-                import("html2canvas").then(mod => {
-                    const html2canvas = mod.default
-                    html2canvas(slider).then(canvas => {
-                        const ctx = canvas.getContext("2d")
-                        const color = ctx.getImageData(clickX, clickY, 1, 1).data
-                        const rgba = {
-                            red: color[0],
-                            green: color[1],
-                            blue: color[2],
-                            alpha: color[3],
-                        }
-
-                        this.$store.commit("addColor", { percent, rgba })
-                    });
-                })
+                this.$store.commit("addColor", percent)
             }
         },
         onHandleClick(id) {

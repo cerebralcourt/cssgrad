@@ -55,8 +55,37 @@ const store = new Vuex.Store({
         setCurrent(state, id) {
             state.current = id
         },
-        addColor(state, { rgba, percent }) {
+        addColor(state, percent) {
             const id = state.lastId + 1
+
+            let rgba
+            const before = state.colors.slice().reverse().find(c => c.percent < percent)
+            const after = state.colors.find(c => c.percent > percent)
+            const equals = state.colors.find(c => c.percent === percent)
+
+            if (equals > -1) {
+                rgba = equals.rgba
+            } else if (before === undefined && after !== undefined) {
+                rgba = after.rgba
+            } else if (before !== undefined && after === undefined) {
+                rgba = before.rgba
+            } else {
+                const distance = after.percent - before.percent
+                const amount = (percent - before.percent) / distance
+
+                console.log(amount, before.percent, after.percent)
+
+                const mix = (a, b) => {
+                    return a * amount + b * (1 - amount)
+                }
+
+                const red = mix(before.rgba.red, after.rgba.red)
+                const green = mix(before.rgba.green, after.rgba.green)
+                const blue = mix(before.rgba.blue, after.rgba.blue)
+
+                rgba = { red, green, blue, alpha: 1 }
+            }
+
             const hue = rgbToHsl(rgba).h
 
             state.colors.push({ id, rgba, percent, hue })
