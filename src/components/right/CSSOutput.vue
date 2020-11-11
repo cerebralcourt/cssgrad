@@ -1,9 +1,9 @@
 <template>
-	<div></div>
+    <div></div>
 </template>
 
 <script>
 export default {
-	name: "CSSOutput",
+    name: "CSSOutput",
 }
 </script>

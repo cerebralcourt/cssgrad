@@ -24,3 +24,9 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Credit
+
+This project uses a font awesome svg
+
+https://fontawesome.com/license

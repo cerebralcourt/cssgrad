@@ -1,6 +1,6 @@
 import Vue from "vue"
 import Vuex from "vuex"
-import { createCSS, rgbToHsl, hslToRgb } from "@/util"
+import { createCSS, hexToRgb, rgbToHsl, hslToRgb } from "@/util"
 
 Vue.use(Vuex)
 
@@ -64,6 +64,12 @@ const store = new Vuex.Store({
             state.lastId = id
             state.current = id
         },
+        deleteColor(state, id) {
+            if (state.colors.length > 2) {
+                const index = state.colors.findIndex(c => c.id === id)
+                state.colors.splice(index, 1)
+            }
+        },
         setColorPercent(state, { id, percent }) {
             const index = state.colors.findIndex(c => c.id === id)
             const color = state.colors[index]
@@ -71,10 +77,18 @@ const store = new Vuex.Store({
             state.colors.splice(index, 1, { ...color, percent })
             state.colors.sort((a, b) => a.percent - b.percent)
         },
+        setColorHex(state, { id, hex }) {
+            const index = state.colors.findIndex(c => c.id === id)
+            const color = state.colors[index]
+            const rgb = hexToRgb(hex)
+            const rgba = { ...rgb, alpha: 1 }
+
+            state.colors.splice(index, 1, { ...color, rgba })
+        },
         setColorRgb(state, { red, green, blue }) {
             const color = currentColor(state)
-            const { rgba, rgba: { alpha } } = color
-            const { h } = rgbToHsl(rgba)
+            const { rgba: { alpha } } = color
+            const { h } = rgbToHsl({ red, green, blue, alpha })
 
             const index = state.colors.indexOf(color)
             state.colors.splice(index, 1, { ...color, rgba: { red, green, blue, alpha }, hue: h })

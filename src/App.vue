@@ -1,6 +1,6 @@
 <template>
-    <div id="app" class="h-screen flex flex-col" :style="css">
-        <div class="hidden sm:block">
+    <div id="app" class="h-screen" :style="css">
+        <div class="hidden sm:block flex flex-col">
             <div class="app-container flex justify-between flex-grow">
                 <left-widget />
                 <right-widget />

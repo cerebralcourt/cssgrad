@@ -1,5 +1,5 @@
 <template>
-    <div class="widget rounded shadow-lg h-full inline-block overflow-x-hidden">
+    <div class="widget rounded shadow-lg inline-block overflow-x-hidden border-b-2 border-gray-400 flex flex-col">
         <div class="relative">
             <button
                 class="w-1/2 px-5 py-2 transition-colors duration-300 waves-effect waves-light
@@ -22,7 +22,7 @@
                 :class="tab === 1 && 'active'"
             />
         </div>
-        <div class="tab-items flex" :class="tab === 1 && 'active'">
+        <div class="tab-items flex flex-grow" :class="tab === 1 && 'active'">
             <slot></slot>
         </div>
     </div>
@@ -42,9 +42,9 @@ export default {
 
 <style lang="postcss" scoped>
 .widget {
-    @apply border-b-2 border-gray-400;
     background: linear-gradient(to bottom, theme("colors.gray.400"), theme("colors.gray.500"));
     max-width: 40vw;
+    min-height: 100%;
 }
 
 @media (min-width: theme("screens.lg")) {
