@@ -2,7 +2,7 @@
 
 A CSS gradient generator.
 
-https://giraffekey.github.io/cssgrad/
+https://cerebralcourt.github.io/cssgrad/
 
 ## Development
 
